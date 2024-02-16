@@ -1,13 +1,16 @@
+'use client';
+
 import Container from "../Container";
 import Logo from "../navbar/Logo";
 import Search from "../navbar/Search";
+import UserMenu from "./UserMenu";
 
 const Navbar = () => {
     return ( 
        <div className="fixed w-full bg-white z-10 shadow-sm">
         <div
             className="
-                py-6
+                py-4
                 border-b-[1px]
             "
         >
