@@ -6,8 +6,16 @@ import { useCallback, useState } from "react";
 import MenuItem from "./MenuItem";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import useLoginModal from "@/app/hooks/useLoginModal";
+import { signOut } from "next-auth/react";
+import { SafeUser } from "@/app/types";
 
-const UserMenu = () => {
+interface UserMenuProps {
+    currentUser?: SafeUser | null
+}
+
+const UserMenu: React.FC<UserMenuProps> = ({
+    currentUser
+}) => {
     const registerModal = useRegisterModal();
     const loginModal = useLoginModal();
     const [isOpen, setIsOpen] = useState(false);
@@ -57,7 +65,7 @@ const UserMenu = () => {
                 >
                     <AiOutlineMenu />
                     <div className="hidden md:block">
-                        <Avatar />
+                        <Avatar src={currentUser?.image} />
 
                     </div>
                 </div>
@@ -79,6 +87,35 @@ const UserMenu = () => {
                     "   
                 >
                     <div className="flex flex-col cursor-pointer">
+                            {currentUser ? (
+                                <>
+                                <MenuItem
+                                    onClick={() => {}}
+                                    label="Meus Cuidadores"
+                                />
+                                <MenuItem
+                                    onClick={() => {}}
+                                    label="Meus Favoritos"
+                                />
+                                <MenuItem
+                                    onClick={() => {}}
+                                    label="Minhas Solicitações"
+                                />
+                                <MenuItem
+                                    onClick={() => {}}
+                                    label="Serviços Feitos"
+                                />
+                                <MenuItem
+                                    onClick={() => {}}
+                                    label="Perfil no Caregiver"
+                                />
+                                <hr/>
+                                <MenuItem
+                                    onClick={() => signOut()}
+                                    label="Sair"
+                                />
+                            </>
+                            ) : (
                         <>
                             <MenuItem
                                 onClick={loginModal.onOpen}
@@ -89,6 +126,7 @@ const UserMenu = () => {
                                 label="Cadastrar-se"
                             />
                         </>
+                        )}
                     </div>
                 </div>
             )}

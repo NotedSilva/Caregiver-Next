@@ -1,7 +1,7 @@
 'use client';
 
 import axios from 'axios';
-import { FaFacebookF } from 'react-icons/fa';
+import { AiFillGithub } from 'react-icons/ai'
 import { FcGoogle } from 'react-icons/fc';
 import  {signIn} from 'next-auth/react';
 import { useCallback, useState } from 'react';
@@ -20,6 +20,7 @@ import Input from '../inputs/input';
 import toast from 'react-hot-toast';
 import Button from '../Button';
 import { useRouter } from 'next/navigation';
+;
 
 
 const LoginModal = () => {
@@ -100,10 +101,10 @@ const LoginModal = () => {
                 icon={FcGoogle}
                 onClick={() => {}}
             />
-            <Button 
+             <Button 
                 outline
-                label="Continuar com Facebook"
-                icon={FaFacebookF}
+                label="Continuar com Github"
+                icon={AiFillGithub}
                 onClick={() => {}}
             />
             <div 
