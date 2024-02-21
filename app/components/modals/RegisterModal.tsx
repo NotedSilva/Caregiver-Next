@@ -45,7 +45,7 @@ const RegisterModal= () => {
 
     axios.post('/api/register', data)
     .then(() => {
-      toast.success('Registered!');
+      toast.success('Registrado!');
       registerModal.onClose();
       loginModal.onOpen();
     })
@@ -65,8 +65,9 @@ const RegisterModal= () => {
   const bodyContent = (
     <div className="flex flex-col gap-4">
       <Heading
-        title="Welcome to Airbnb"
-        subtitle="Create an account!"
+        title="Bem-vindo ao Caregiver"
+        subtitle="Crie a sua conta aqui!"
+        center
       />
       <Input
         id="email"
@@ -78,7 +79,7 @@ const RegisterModal= () => {
       />
       <Input
         id="name"
-        label="Name"
+        label="Nome"
         disabled={isLoading}
         register={register}
         errors={errors}
@@ -86,7 +87,7 @@ const RegisterModal= () => {
       />
       <Input
         id="password"
-        label="Password"
+        label="Senha"
         type="password"
         disabled={isLoading}
         register={register}
@@ -101,13 +102,13 @@ const RegisterModal= () => {
       <hr />
       <Button 
         outline 
-        label="Continue with Google"
+        label="Continuar com Google"
         icon={FcGoogle}
         onClick={() => signIn('google')} 
       />
       <Button 
         outline 
-        label="Continue with Github"
+        label="Continuar com Github"
         icon={AiFillGithub}
         onClick={() => signIn('github')}
       />
@@ -119,7 +120,7 @@ const RegisterModal= () => {
           font-light
         "
       >
-        <p>Already have an account?
+        <p>Já possui uma conta?
           <span 
             onClick={onToggle} 
             className="
@@ -127,7 +128,7 @@ const RegisterModal= () => {
               cursor-pointer 
               hover:underline
             "
-            > Log in</span>
+            > Conecte-se</span>
         </p>
       </div>
     </div>
@@ -137,8 +138,8 @@ const RegisterModal= () => {
     <Modal
       disabled={isLoading}
       isOpen={registerModal.isOpen}
-      title="Register"
-      actionLabel="Continue"
+      title="Registre-se"
+      actionLabel="Continuar"
       onClose={registerModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}

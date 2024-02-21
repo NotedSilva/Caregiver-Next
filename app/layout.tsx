@@ -20,6 +20,8 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const currentUser = await getCurrentUser();
+
+  
   return (
     <html lang="pt-br">
       <body className={font.className}>
