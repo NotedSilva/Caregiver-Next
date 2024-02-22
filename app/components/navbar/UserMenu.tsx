@@ -1,12 +1,15 @@
 'use client';
 
 import { AiOutlineMenu } from "react-icons/ai";
-import Avatar from "../Avatar";
+import { signOut } from "next-auth/react";
 import { useCallback, useState } from "react";
+
 import MenuItem from "./MenuItem";
+import Avatar from "../Avatar";
+
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import useLoginModal from "@/app/hooks/useLoginModal";
-import { signOut } from "next-auth/react";
+import useRentModal from "@/app/hooks/useRentModal";
 import { SafeUser } from "@/app/types";
 
 interface UserMenuProps {
@@ -17,9 +20,9 @@ interface UserMenuProps {
     currentUser
   }) => {
   
-    const loginModal = useLoginModal();
-    const registerModal = useRegisterModal();
-
+      const registerModal = useRegisterModal();
+      const loginModal = useLoginModal();
+      const rentModal = useRentModal();
   
     const [isOpen, setIsOpen] = useState(false);
   
@@ -27,12 +30,20 @@ interface UserMenuProps {
       setIsOpen((value) => !value);
     }, []);
 
+    const onRent = useCallback(() => {
+        if (!currentUser) {
+            return loginModal.onOpen();
+        }
+
+        rentModal.onOpen();
+    }, [currentUser, loginModal, rentModal]);
+
 
     return (
         <div className="relative">
             <div className="flex flex-row items-center gap-3">
                 <div
-                    onClick={() => {}}
+                    onClick={onRent}
                     className="
                         hidden
                         md:block
@@ -109,7 +120,7 @@ interface UserMenuProps {
                                     label="Serviços Feitos"
                                 />
                                 <MenuItem
-                                    onClick={() => {}}
+                                    onClick={rentModal.onOpen}
                                     label="Perfil no Caregiver"
                                 />
                                 <hr/>
