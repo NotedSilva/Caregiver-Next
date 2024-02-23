@@ -7,6 +7,8 @@ import CategoryInput from "../inputs/CategoryInput";
 import Heading from "../Heading";
 import Modal from "./modal";
 import { categories } from "../navbar/Categories";
+import CountrySelect from "../inputs/CountrySelect";
+import dynamic from "next/dynamic";
 
 
 enum STEPS {
@@ -46,6 +48,11 @@ const RentModal = () => {
     });
 
     const category = watch('category');
+    const location = watch('location');
+
+    const Map = useMemo(() => dynamic(() => import('../Map'), { 
+      ssr: false 
+    }), [location]);
 
     const setCustomValue = (id: string, value: any) => {
         setValue(id, value, {
@@ -109,13 +116,29 @@ const RentModal = () => {
           </div>
         </div>
       )
+
+      if (step === STEPS.LOCATION) {
+        bodyContent = (
+          <div className=" flex flex-col gap-8">
+            <Heading
+              title="Qual é a sua localização?"
+              subtitle="Ajude os usuários a te encontrar!"
+            />
+            <CountrySelect
+            value={location}
+              onChange={(value) => setCustomValue('location', value)}
+            />
+            <Map center={location?.latlng} />
+          </div>
+        )
+      }
       
     return (
         <Modal
             isOpen={rentModal.isOpen}
             title="Anuncie seu perfil no Caregiver"
             actionLabel={actionLabel}
-            onSubmit={rentModal.onClose}
+            onSubmit={onNext}
             secondaryActionLabel={secondaryActionLabel}
             secondaryAction={step === STEPS.CATEGORY ? undefined : onBack}
             onClose={rentModal.onClose}
