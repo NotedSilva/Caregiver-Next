@@ -9,6 +9,8 @@ import Modal from "./modal";
 import { categories } from "../navbar/Categories";
 import CountrySelect from "../inputs/CountrySelect";
 import dynamic from "next/dynamic";
+import Counter from "../inputs/Counter";
+import ImageUpload from "../inputs/ImageUpload";
 
 
 enum STEPS {
@@ -39,6 +41,8 @@ const RentModal = () => {
         defaultValues: {
             category: '',
             location: null,
+            experienceCount: 1,
+            timeCount: 1,
             dependentCount: 1,
             imageSrc: '',
             price: 1,
@@ -49,6 +53,10 @@ const RentModal = () => {
 
     const category = watch('category');
     const location = watch('location');
+    const timeCount = watch('timeCount');
+    const experienceCount = watch('experienceCount');
+    const dependentCount = watch('dependentCount');
+    const imageSrc = watch('imageSrc');
 
     const Map = useMemo(() => dynamic(() => import('../Map'), { 
       ssr: false 
@@ -75,7 +83,7 @@ const RentModal = () => {
           return 'Create'
         }
     
-        return 'Next'
+        return 'Próximo'
       }, [step]);
     
       const secondaryActionLabel = useMemo(() => {
@@ -83,7 +91,7 @@ const RentModal = () => {
           return undefined
         }
     
-        return 'Back'
+        return 'Voltar'
       }, [step]);
 
       let bodyContent = (
@@ -129,6 +137,53 @@ const RentModal = () => {
               onChange={(value) => setCustomValue('location', value)}
             />
             <Map center={location?.latlng} />
+          </div>
+        )
+      }
+
+      if (step === STEPS.INFO) {
+        bodyContent = (
+          <div className=" flex flex-col gap-8">
+            <Heading
+              title="Conte-me um pouco sobre você"
+              subtitle="Suas informações!"
+            />
+            <hr/>
+            <Counter
+              title="Disponibilidade de tempo"
+              subtitle="Quantas horas por semana você está disponível para trabalhar como cuidador?"
+              value={timeCount}
+              onChange={(value) => setCustomValue('timeCount', value)}
+            />
+             <hr/>
+            <Counter
+              title="Experiência prévia"
+              subtitle="Quantos anos de experiência você possui como cuidador?"
+              value={experienceCount}
+              onChange={(value) => setCustomValue('experienceCount', value)}
+            />
+             <hr/>
+            <Counter
+              title="Beneficiários"
+              subtitle="Número de beneficiários?"
+              value={dependentCount}
+              onChange={(value) => setCustomValue('dependentCount', value)}
+            />
+          </div>
+        )
+      }
+
+      if (step === STEPS.IMAGES) {
+        bodyContent = (
+          <div className="flex flex-col gap-8">
+            <Heading
+              title="Adicione uma foto sua"
+              subtitle=""
+            />
+            <ImageUpload
+              value={imageSrc}
+              onChange={(value) => setCustomValue('imageSrc', value)}
+            />
           </div>
         )
       }
