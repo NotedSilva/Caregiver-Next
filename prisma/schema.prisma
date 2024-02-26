@@ -52,8 +52,8 @@ model Listing {
   imageSrc String
   createdAt DateTime @default(now())
   category  String
-  roomCount Int
-  bathroomCount Int
+  timeCount Int
+  experienceCount Int
   dependentCount Int
   locationValue String
   userId String @db.ObjectId
