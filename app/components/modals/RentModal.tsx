@@ -85,15 +85,15 @@ const RentModal = () => {
       }
 
       const onSubmit: SubmitHandler<FieldValues> = (data) => {
-        if (step != STEPS.PRICE) {
+        if (step !== STEPS.PRICE) {
           return onNext();
         }
-
+        
         setIsLoading(true);
 
         axios.post('/api/listings', data)
         .then(() => {
-          toast.success('Listing Created!');
+          toast.success('Anuncio Criado');
           router.refresh();
           reset();
           setStep(STEPS.CATEGORY);
@@ -241,8 +241,8 @@ const RentModal = () => {
               register={register}
               errors={errors}
               required
-              />
-              <hr />
+            />
+            <hr />
             <Input
               id="description"
               label="Descrição"
@@ -265,7 +265,7 @@ const RentModal = () => {
             <Input
               id="price"
               label="Preço"
-              formatPrice="$"
+              formatPrice
               type="number"
               disabled={isLoading}
               register={register}
